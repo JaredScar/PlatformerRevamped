@@ -5,6 +5,7 @@ import com.jaredscarito.platformerrevamped.characters.Meatboy;
 import com.jaredscarito.platformerrevamped.draw.DrawableAdapter;
 import com.jaredscarito.platformerrevamped.draw.GameBoard;
 import com.jaredscarito.platformerrevamped.stages.Stage;
+import com.jaredscarito.platformerrevamped.stages.StartingStage;
 import com.jaredscarito.platformerrevamped.timers.GameTimer;
 
 import java.awt.*;
@@ -26,14 +27,15 @@ public class PlatformerRevamped extends DrawableAdapter {
             }
         }
     }
+    private GameTimer gt;
     public void start() {
         this.canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         setCanvas(Color.CYAN);
         showGameBoard(gb);
-        GameTimer gt = new GameTimer();
+        this.gt = new GameTimer();
         Timer timer = new Timer();
-        timer.schedule(gt, 0, 1000); //Each second is ran
-        gt.run();
+        timer.schedule(this.gt, 0, 1000); //Each second is ran
+        this.gt.run();
     }
 
     private Stage currentStage;
@@ -53,9 +55,12 @@ public class PlatformerRevamped extends DrawableAdapter {
 
         //Character
         if(!this.gameStarted) {
-            this.charact = new Meatboy(g, this.canvas, 50, 480, 1000, Color.GRAY, Color.DARK_GRAY);
+            this.charact = new Meatboy(g, this.canvas, 50, 472, 1000, Color.GRAY, Color.DARK_GRAY);
+            this.currentStage = new StartingStage(g);
             this.gameStarted = true;
         }
+        g.drawString(this.gt.getTimeString(), 350, 50);
+        currentStage.draw();
         this.charact.draw();
     }
 

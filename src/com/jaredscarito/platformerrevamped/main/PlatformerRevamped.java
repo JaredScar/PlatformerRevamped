@@ -41,6 +41,7 @@ public class PlatformerRevamped extends DrawableAdapter {
     private Stage currentStage;
     private boolean gameStarted = false;
     private GameCharacter charact;
+    public Graphics g;
     //Draw method
     @Override
     public void draw(Graphics g) {
@@ -55,13 +56,14 @@ public class PlatformerRevamped extends DrawableAdapter {
 
         //Character
         if(!this.gameStarted) {
-            this.charact = new Meatboy(g, this.canvas, 50, 472, 1000, Color.GRAY, Color.DARK_GRAY);
+            this.charact = new Meatboy(this, g, this.canvas, 50, 472, 1000, Color.GRAY, Color.DARK_GRAY);
             this.currentStage = new StartingStage(g);
             this.gameStarted = true;
         }
         g.drawString(this.gt.getTimeString(), 350, 50);
         currentStage.draw();
         this.charact.draw();
+        this.g = g;
     }
 
     @Override

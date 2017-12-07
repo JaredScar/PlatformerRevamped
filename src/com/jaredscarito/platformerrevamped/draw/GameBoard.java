@@ -38,7 +38,7 @@ public class GameBoard extends JFrame implements MouseMotionListener, MouseListe
     Drawable gamePanel;
     int boardWidth;
     int boardHeight;
-    boolean appletPaint;
+    public boolean appletPaint;
     StartHandler startHandler;
     StopHandler stopHandler;
     LeftHandler leftHandler;
@@ -62,7 +62,6 @@ public class GameBoard extends JFrame implements MouseMotionListener, MouseListe
     JButton downButton;
     Image mImage;
     Image initImage;
-
     public void repaint(boolean paint) {
         if(paint) {
             this.repaint();

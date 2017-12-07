@@ -19,8 +19,11 @@ public class JumpTimer extends TimerTask {
     }
     @Override
     public void run() {
-        this.gc.subtractY(5);
-        this.addedY += 5;
+        this.gc.subtractY(25);
+        this.gc.draw();
+        this.gc.pr.gb.appletPaint = false;
+        this.gc.pr.gb.repaint();
+        this.addedY += 25;
         if(this.addedY >= 100) {
             this.gc.isJumped = false;
             this.cancel();

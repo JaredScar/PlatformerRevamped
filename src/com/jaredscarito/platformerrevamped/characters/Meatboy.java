@@ -1,5 +1,6 @@
 package com.jaredscarito.platformerrevamped.characters;
 
+import com.jaredscarito.platformerrevamped.main.PlatformerRevamped;
 import com.jaredscarito.platformerrevamped.storage.PointStorage;
 
 import java.awt.*;
@@ -9,10 +10,11 @@ import java.awt.image.BufferedImage;
  * Created by user on 12/6/2017.
  */
 public class Meatboy extends GameCharacter {
-    public Meatboy(Graphics g, BufferedImage canvas, int startX, int startY, int gravitySpeed,  Color... cantCollide) {
+    public Meatboy(PlatformerRevamped pr, Graphics g, BufferedImage canvas, int startX, int startY, int gravitySpeed, Color... cantCollide) {
         this.cantCollide = cantCollide;
         this.canvas = canvas;
         this.gravitySpeed = gravitySpeed;
+        this.pr = pr;
 
         //Draw his feet
         g.setColor(Color.RED);

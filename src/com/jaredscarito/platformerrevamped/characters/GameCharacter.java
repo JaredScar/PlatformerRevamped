@@ -1,5 +1,6 @@
 package com.jaredscarito.platformerrevamped.characters;
 
+import com.jaredscarito.platformerrevamped.main.PlatformerRevamped;
 import com.jaredscarito.platformerrevamped.storage.PointStorage;
 import com.jaredscarito.platformerrevamped.timers.GravityTimer;
 import com.jaredscarito.platformerrevamped.timers.JumpTimer;
@@ -25,6 +26,7 @@ public abstract class GameCharacter {
     protected BufferedImage canvas;
     protected Color[] cantCollide;
     protected GravityTimer gravity;
+    public PlatformerRevamped pr;
 
     //Draw the character
     public void draw() {
@@ -53,7 +55,7 @@ public abstract class GameCharacter {
             isJumped = true;
             JumpTimer jumpTask = new JumpTimer(this);
             Timer task = new Timer();
-            task.schedule(jumpTask, 0, 500);
+            task.schedule(jumpTask, 0, 300);
             jumpTask.run();
         }
     }

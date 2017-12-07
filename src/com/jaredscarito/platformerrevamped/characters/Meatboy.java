@@ -4,25 +4,15 @@ import com.jaredscarito.platformerrevamped.storage.PointStorage;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /**
  * Created by user on 12/6/2017.
  */
 public class Meatboy extends GameCharacter {
-    protected ArrayList<PointStorage> bodyPoints = new ArrayList<>();
-    protected ArrayList<PointStorage> leftArm = new ArrayList<>();
-    protected ArrayList<PointStorage> rightArm = new ArrayList<>();
-    protected ArrayList<PointStorage> leftLeg = new ArrayList<>();
-    protected ArrayList<PointStorage> rightLeg = new ArrayList<>();
-    protected Color[] cantcollide;
-    protected int legsY;
-
-    private BufferedImage canvas;
-
-    public Meatboy(Graphics g, BufferedImage canvas, int startX, int startY, Color... cantcollide) {
-        this.cantcollide = cantcollide;
+    public Meatboy(Graphics g, BufferedImage canvas, int startX, int startY, int gravitySpeed,  Color... cantCollide) {
+        this.cantCollide = cantCollide;
         this.canvas = canvas;
+        this.gravitySpeed = gravitySpeed;
 
         //Draw his feet
         g.setColor(Color.RED);
@@ -138,6 +128,6 @@ public class Meatboy extends GameCharacter {
                 }
             }
         }
-        this.setup(bodyPoints, leftArm, rightArm, leftLeg, rightLeg, eyePoints, mouthPoints);
+        this.startGravity();
     }
 }

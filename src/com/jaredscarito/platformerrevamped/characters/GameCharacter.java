@@ -1,8 +1,13 @@
 package com.jaredscarito.platformerrevamped.characters;
 
 import com.jaredscarito.platformerrevamped.storage.PointStorage;
+import com.jaredscarito.platformerrevamped.timers.GravityTimer;
+import com.jaredscarito.platformerrevamped.timers.JumpTimer;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.Timer;
 
 /**
  * Created by user on 12/6/2017.
@@ -16,21 +21,49 @@ public abstract class GameCharacter {
     protected ArrayList<PointStorage> eyePoints = new ArrayList<>();
     protected ArrayList<PointStorage> mouthPoints = new ArrayList<>();
     protected int legsY = 0;
+    protected int gravitySpeed = 0;
+    protected BufferedImage canvas;
+    protected Color[] cantCollide;
+    protected GravityTimer gravity;
 
-    public void setup(ArrayList<PointStorage> bodyPoints, ArrayList<PointStorage> leftArm, ArrayList<PointStorage> rightArm, ArrayList<PointStorage> leftLeg,
-                         ArrayList<PointStorage> rightLeg, ArrayList<PointStorage> eyePoints, ArrayList<PointStorage> mouthPoints) {
-        this.bodyPoints = bodyPoints;
-        this.leftArm = leftArm;
-        this.rightArm = rightArm;
-        this.leftLeg = leftLeg;
-        this.rightLeg = rightLeg;
-        this.eyePoints = eyePoints;
-        this.mouthPoints = mouthPoints;
+    //Draw the character
+    public void draw() {
+        for(PointStorage points : this.getAllPoints()) {
+            this.canvas.setRGB(points.getTransformedX(), points.getTransformedY(), points.getColor().getRGB());
+        }
     }
 
     //Get last layer of legs' Y
     public int getLegsY() {
         return legsY;
+    }
+
+    //Start gravity of character
+    public void startGravity() {
+        this.gravity = new GravityTimer(this);
+        Timer task = new Timer();
+        task.schedule(this.gravity, this.gravitySpeed);
+    }
+
+    public boolean isJumped = false;
+    //Character jump
+    public void jump() {
+        if(!isJumped) {
+            //Jump, then have it get reset after jump is completed
+            isJumped = true;
+            JumpTimer jumpTask = new JumpTimer(this);
+            Timer task = new Timer();
+            task.schedule(jumpTask, 0, 500);
+            jumpTask.run();
+        }
+    }
+    //Move right
+    public void moveRight() {
+        this.addX(5);
+    }
+    //Move left
+    public void moveLeft() {
+        this.subtractX(5);
     }
 
     //Get all points
@@ -212,7 +245,4 @@ public abstract class GameCharacter {
             mouth.setX(mouth.getTransformedX() - x);
         }
     }
-
-    //Moving the character:
-
 }

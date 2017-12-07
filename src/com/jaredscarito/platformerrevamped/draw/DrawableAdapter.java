@@ -13,12 +13,14 @@ public class DrawableAdapter implements Drawable {
     public static void showGameBoard(GameBoard gb) {
         gb.setVisible(true);
 
+        /** /
         try {
             Thread.sleep(10L);
             gb.repaint(true);
         } catch (InterruptedException var2) {
             ;
         }
+         /**/
 
     }
 

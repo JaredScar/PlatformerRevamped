@@ -2,6 +2,7 @@ package com.jaredscarito.platformerrevamped.timers;
 
 import com.jaredscarito.platformerrevamped.characters.GameCharacter;
 
+import java.awt.*;
 import java.util.TimerTask;
 
 /**
@@ -17,6 +18,10 @@ public class GravityTimer extends TimerTask {
     }
     @Override
     public void run() {
-        //
+        int characterX = this.gCharacter.getAllPoints().get(0).getTransformedX();
+        int legsY = this.gCharacter.getLegsY();
+        if(this.gCharacter.pr.canvas.getRGB(characterX, (legsY + 3)) == Color.CYAN.getRGB()) {
+            this.gCharacter.addY(1);
+        }
     }
 }

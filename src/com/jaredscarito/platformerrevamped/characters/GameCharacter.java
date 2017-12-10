@@ -25,7 +25,6 @@ public abstract class GameCharacter {
     protected int gravitySpeed = 0;
     protected BufferedImage canvas;
     protected Color[] cantCollide;
-    protected GravityTimer gravity;
     public PlatformerRevamped pr;
 
     //Draw the character
@@ -33,8 +32,14 @@ public abstract class GameCharacter {
         for(PointStorage points : this.getAllPoints()) {
             this.canvas.setRGB(points.getTransformedX(), points.getTransformedY(), points.getColor().getRGB());
         }
+        //this.pr.gb.appletPaint = false;
+        //this.pr.gb.repaint();
     }
 
+
+    public void setGravitySpeed(int speed) {
+        this.gravitySpeed = speed;
+    }
     //Get last layer of legs' Y
     public int getLegsY() {
         return legsY;
@@ -42,9 +47,10 @@ public abstract class GameCharacter {
 
     //Start gravity of character
     public void startGravity() {
-        this.gravity = new GravityTimer(this);
+        GravityTimer gravity = new GravityTimer(this);
         Timer task = new Timer();
-        task.schedule(this.gravity, this.gravitySpeed);
+        task.schedule(gravity, 0, this.gravitySpeed);
+        gravity.run();
     }
 
     public boolean isJumped = false;
@@ -53,19 +59,19 @@ public abstract class GameCharacter {
         if(!isJumped) {
             //Jump, then have it get reset after jump is completed
             isJumped = true;
-            JumpTimer jumpTask = new JumpTimer(this);
+            JumpTimer jumpTask = new JumpTimer(this, this.pr.gb);
             Timer task = new Timer();
-            task.schedule(jumpTask, 0, 300);
+            task.schedule(jumpTask, 0, 80);
             jumpTask.run();
         }
     }
     //Move right
     public void moveRight() {
-        this.addX(5);
+        this.addX(10);
     }
     //Move left
     public void moveLeft() {
-        this.subtractX(5);
+        this.subtractX(10);
     }
 
     //Get all points
@@ -131,6 +137,7 @@ public abstract class GameCharacter {
         for(PointStorage rl : rightLeg) {
             rl.setY(rl.getTransformedY() + y);
         }
+        this.legsY += y;
 
         //Eye points
         for(PointStorage eyes : eyePoints) {
@@ -166,6 +173,7 @@ public abstract class GameCharacter {
         for(PointStorage rl : rightLeg) {
             rl.setY(rl.getTransformedY() - y);
         }
+        this.legsY -= y;
 
         //Eye points
         for(PointStorage eyes : eyePoints) {

@@ -11,37 +11,24 @@ import java.awt.image.BufferedImage;
 public class WinStage extends Stage {
     public WinStage(BufferedImage canvas) {
         super(canvas);
+        this.startCharX = 450;
+        this.startCharY = 470;
+    }
+    @Override
+    public void setup() {
         drawBandageGirl();
         //Now we setup the platforms
         //Parkour skill stage
-        RectShape rightPlatformStart = new RectShape(super.canvas, Color.GRAY, 0, 480, 500, 20);
-        rightPlatformStart.draw();
-        this.platforms.add(rightPlatformStart);
-
-        //Left platform
-        RectShape leftPlatform = new RectShape(super.canvas, Color.GRAY, 0, 300, 150, 20);
-        leftPlatform.draw();
-        this.platforms.add(leftPlatform);
-
-        //Right platform
-        RectShape rightPlatform = new RectShape(super.canvas, Color.GRAY, 300, 350, 200, 20);
-        rightPlatform.draw();
-        this.platforms.add(rightPlatform);
-
-        //Left top platform
-        RectShape leftTopPlatform = new RectShape(super.canvas, Color.GRAY, 0, 250, 150, 20);
-        leftTopPlatform.draw();
-        this.platforms.add(leftTopPlatform);
-
-        //Right top platform with door possibly
-        RectShape rightTopPlatWithDoor = new RectShape(super.canvas, Color.GRAY, 300, 170, 200, 20);
-        rightTopPlatWithDoor.draw();
-        this.platforms.add(rightTopPlatWithDoor);
+        //Ground
+        RectShape ground = new RectShape(super.canvas, Color.GRAY, 0, 480, 500, 20);
+        this.platforms.add(ground);
+        RectShape bottomRightPlat = new RectShape(super.canvas, Color.GRAY, 470, 470, 30, 20);
+        this.platforms.add(bottomRightPlat);
     }
     public void drawBandageGirl() {
-        int x = 200;
+        int x = 450;
         int y = 80;
-        new RectShape(this.canvas, Color.PINK, x, y, 8, 8).draw();
+        this.stageObjs.add(new RectShape(this.canvas, Color.PINK, x, y, 8, 8));
         int rightFootStart = x + 16;
         //Right foot
         this.stageObjs.add(new RectShape(this.canvas, Color.PINK, rightFootStart, y, 8, 8));

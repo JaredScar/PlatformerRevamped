@@ -18,6 +18,11 @@ public abstract class Stage {
     public Stage(BufferedImage canvas) {
         this.canvas = canvas;
     }
+    public void clear() {
+        this.platforms.clear();
+        this.stageObjs.clear();
+    }
+    public void setup() {}
     public boolean willCollideWithPlatform(int x, int y) {
         for(RectShape rect : this.platforms) {
             for(PointStorage points : rect.getPoints()) {

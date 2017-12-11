@@ -11,10 +11,13 @@ import java.awt.image.BufferedImage;
 public class StartingStage extends Stage {
     public StartingStage(BufferedImage canvas) {
         super(canvas);
+    }
+    @Override
+    public void setup() {
         //Parkour skill stage
-        RectShape rightPlatformStart = new RectShape(super.canvas, Color.GRAY, 0, 480, 500, 20);
-        rightPlatformStart.draw();
-        this.platforms.add(rightPlatformStart);
+        RectShape ground = new RectShape(super.canvas, Color.GRAY, 0, 480, 500, 20);
+        ground.draw();
+        this.platforms.add(ground);
 
         //Left platform
         RectShape leftPlatform = new RectShape(super.canvas, Color.GRAY, 0, 400, 150, 20);

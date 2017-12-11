@@ -41,6 +41,7 @@ public class PlatformerRevamped extends DrawableAdapter {
     }
 
     private Stage currentStage;
+    private Stage[] stageOrder = new Stage[3];
     private boolean gameStarted = false;
     private GameCharacter charact;
     //Draw method
@@ -49,25 +50,26 @@ public class PlatformerRevamped extends DrawableAdapter {
         //Background:
         Graphics2D g2d = (Graphics2D) g;
         g2d.drawImage(this.canvas, null, null);
-        /**/
-        for(int x=0; x<this.canvas.getWidth(); x++) {
-            for(int y=0; y<this.canvas.getHeight(); y++) {
-                this.canvas.setRGB(x, y, Color.CYAN.getRGB());
-            }
-        }
-        /**/
-
+        setCanvas(Color.CYAN);
         //Character
         if(!this.gameStarted) {
-            this.charact = new Meatboy(this, g, this.canvas, 50, 472, 1000, Color.GRAY, Color.DARK_GRAY);
-            this.charact.setGravitySpeed(50);
-            this.charact.startGravity();
-            this.currentStage = new StartingStage(this.canvas);
+            //Set up order of stages:
+            Stage startingStage = new StartingStage(this.canvas);
+            this.stageOrder[0] = startingStage;
+            //Set up private datas
+            this.currentStage = this.stageOrder[0];
+            this.charact = new Meatboy(this, this.canvas, 50, 432, 1000);
+            this.charact.setGravitySpeed(20);
+            this.charact.startGravity(this.currentStage);
             this.gameStarted = true;
         }
+        //Check if character is in portal
+        if(this.currentStage.collidedWithObj(this.charact.getX(), this.charact.getY())) {
+            //Goes to next stage
+        }
         g.drawString(this.gt.getTimeString(), 350, 50);
-        this.charact.draw();
         this.currentStage.draw();
+        this.charact.draw();
     }
     @Override
     public void timer1() {
@@ -78,7 +80,7 @@ public class PlatformerRevamped extends DrawableAdapter {
     public void keyStruck(char c) {
         switch (c) {
             case 'W':
-                this.charact.jump();
+                this.charact.jump(this.currentStage);
                 break;
             case 'S':
                 break;

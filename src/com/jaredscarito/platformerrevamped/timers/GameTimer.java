@@ -20,7 +20,7 @@ public class GameTimer extends TimerTask {
             mins++;
         }
         if(mins > 0) {
-            if(secs < 9) {
+            if(secs <= 9) {
                 time = "ELAPSED: " + mins + ":0" + secs;
             } else {
                 time = "ELAPSED: " + mins + ":" + secs;

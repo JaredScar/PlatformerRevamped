@@ -27,7 +27,7 @@ public class JumpTimer extends TimerTask {
         this.addedY += 5;
         //this.gb.appletPaint = false;
         //this.gb.repaint();
-        if(this.addedY >= 70) {
+        if(this.addedY >= 138) {
             this.gc.isJumped = false;
             this.cancel();
         }

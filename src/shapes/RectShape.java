@@ -11,8 +11,8 @@ import java.awt.image.BufferedImage;
 public class RectShape extends Shape {
     public RectShape(BufferedImage canvas, Color c, int startX, int startY, int width, int height) {
         super(canvas, c, startX, startY, width, height);
-        for(int x=0; x<width; x++) {
-            for(int y=0; y<height; y++) {
+        for(int x=startX; x<(width + startX); x++) {
+            for(int y=startY; y<(height + startY); y++) {
                 super.points.add(new PointStorage(x, y, c));
             }
         }
